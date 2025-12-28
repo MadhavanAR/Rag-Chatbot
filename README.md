@@ -1,141 +1,81 @@
-# 📄 Resume Screening RAG Chatbot
+# Resume Screening RAG Chatbot
 
-A powerful Retrieval-Augmented Generation (RAG) chatbot built with Streamlit and LangChain for intelligent resume screening and candidate discovery. Upload multiple resume PDFs and ask natural language questions to find the perfect candidate.
+A Retrieval-Augmented Generation (RAG) application for intelligent resume screening and candidate discovery. Built with Streamlit and LangChain, enabling natural language queries over uploaded resume PDFs.
 
-## ✨ Features
+## Features
 
-- **📚 Bulk Resume Upload**: Upload multiple PDF resumes at once
-- **🔍 Intelligent Search**: Ask natural language questions to find candidates based on skills, experience, or qualifications
-- **🤖 RAG-Powered**: Uses Retrieval-Augmented Generation for accurate, context-aware responses
-- **⚡ Fast Retrieval**: Leverages FAISS vector database for efficient similarity search
-- **🎯 Context-Aware**: Only returns answers based on uploaded resume content
+- Bulk PDF resume upload
+- Natural language query interface
+- RAG-based semantic search
+- FAISS vector database for efficient retrieval
+- Context-aware responses limited to uploaded content
 
-## 🛠️ Technologies Used
+## Tech Stack
 
-- **Streamlit**: Interactive web application framework
-- **LangChain**: Framework for building LLM-powered applications
+- **Streamlit**: Web UI framework
+- **LangChain**: LLM orchestration
 - **Ollama**: Local LLM and embeddings (nomic-embed-text, llama3.2)
-- **FAISS**: Vector database for similarity search
-- **PyPDF**: PDF document parsing
+- **FAISS**: Vector similarity search
+- **PyPDF**: PDF parsing
 
-## 📋 Prerequisites
+## Prerequisites
 
-Before you begin, ensure you have the following installed:
-
-- Python 3.8 or higher
-- [Ollama](https://ollama.ai/) installed and running locally
+- Python 3.8+
+- Ollama installed and running locally
 - Required Ollama models:
-  - `nomic-embed-text:latest` (for embeddings)
-  - `llama3.2:latest` (for language model)
+  ```bash
+  ollama pull nomic-embed-text
+  ollama pull llama3.2
+  ```
 
-### Installing Ollama Models
+## Installation
 
 ```bash
-# Install the embedding model
-ollama pull nomic-embed-text
+git clone https://github.com/MadhavanAR/Rag-Chatbot.git
+cd Rag-Chatbot
 
-# Install the language model
-ollama pull llama3.2
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+pip install -r requirements.txt
 ```
 
-## 🚀 Installation
+## Usage
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/MadhavanAR/Rag-Chatbot.git
-   cd Rag-Chatbot
-   ```
-
-2. **Create a virtual environment** (recommended)
-   ```bash
-   python -m venv venv
-   
-   # On macOS/Linux
-   source venv/bin/activate
-   
-   # On Windows
-   venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## 💻 Usage
-
-1. **Start the Streamlit application**
-   ```bash
-   streamlit run app.py
-   ```
-
-2. **Upload Resume PDFs**
-   - Click on the file uploader
-   - Select one or multiple PDF resume files
-   - Wait for the processing to complete
-
-3. **Ask Questions**
-   - Enter your question in the text input field
-   - Examples:
-     - "Find a Java developer with 2 years of experience"
-     - "Who has experience with machine learning?"
-     - "Show me candidates with React.js skills"
-
-4. **View Results**
-   - The chatbot will search through the uploaded resumes
-   - Relevant candidates and their information will be displayed
-
-## 📁 Project Structure
-
-```
-Rag-Chatbot/
-├── app.py                 # Main Streamlit application
-├── requirements.txt       # Python dependencies
-├── README.md             # Project documentation
-└── .gitignore           # Git ignore file
+Start the application:
+```bash
+streamlit run app.py
 ```
 
-## 🔧 How It Works
+1. Upload one or multiple resume PDFs via the file uploader
+2. Wait for processing and indexing to complete
+3. Enter natural language queries (e.g., "Find Java developer with 2 years experience")
+4. View candidate matches and relevant information
 
-1. **Document Loading**: PDF resumes are loaded and parsed using PyPDFLoader
-2. **Text Splitting**: Documents are split into smaller chunks (1000 characters with 150 overlap) for better retrieval
-3. **Embedding**: Text chunks are converted to vector embeddings using Ollama's nomic-embed-text model
-4. **Vector Storage**: Embeddings are stored in a FAISS vector database
-5. **Retrieval**: When a question is asked, relevant chunks are retrieved using similarity search
-6. **Generation**: The LLM (llama3.2) generates an answer based on the retrieved context
+## Architecture
 
-## 🎯 Example Queries
+1. **Document Loading**: PDFs parsed with PyPDFLoader
+2. **Chunking**: Text split into 1000-character chunks (150 overlap) using RecursiveCharacterTextSplitter
+3. **Embedding**: Chunks embedded using Ollama nomic-embed-text model
+4. **Indexing**: Vectors stored in FAISS database
+5. **Retrieval**: Top-k (k=5) similar chunks retrieved for each query
+6. **Generation**: llama3.2 LLM generates answers from retrieved context
+
+## Example Queries
 
 - "Find candidates with Python programming experience"
 - "Who has a master's degree in Computer Science?"
-- "Show me developers with 5+ years of experience"
-- "Find candidates who know Docker and Kubernetes"
-- "Who has experience in financial technology?"
+- "Show developers with 5+ years of experience"
+- "Find candidates with Docker and Kubernetes experience"
 
-## 🔒 Privacy & Security
+## Privacy
 
-- All processing happens locally on your machine
-- Resumes are processed in-memory (temporary files are cleaned up)
-- No data is sent to external services
-- Your data stays private
+All processing occurs locally. No data is transmitted to external services.
 
-## 📝 License
+## License
 
-This project is open source and available under the MIT License.
+MIT License
 
-## 🤝 Contributing
+## Author
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/MadhavanAR/Rag-Chatbot/issues).
-
-## 👤 Author
-
-**MadhavanAR**
-
-- GitHub: [@MadhavanAR](https://github.com/MadhavanAR)
-
-## 🙏 Acknowledgments
-
-- Built with [Streamlit](https://streamlit.io/)
-- Powered by [LangChain](https://www.langchain.com/)
-- LLM and embeddings provided by [Ollama](https://ollama.ai/)
-
+MadhavanAR - [GitHub](https://github.com/MadhavanAR)
